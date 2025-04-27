@@ -35,8 +35,7 @@ def available_devices() -> None:
     """
     all_available_cpu()
     all_available_gpu()
-    # TODO: Add RAM reporting in the future
-    # print("RAM device(s): reporting not implemented yet")
+    # need to add RAM
 
 
 def is_file_opened(
