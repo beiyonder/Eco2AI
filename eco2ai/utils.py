@@ -20,7 +20,7 @@ class NotNeededExtensionError(Exception):
     pass
 
 
-def available_devices():
+def available_devices() -> None:
     """
         This function prints all the available CPU & GPU devices
 
@@ -35,7 +35,8 @@ def available_devices():
     """
     all_available_cpu()
     all_available_gpu()
-    # need to add RAM
+    # TODO: Add RAM reporting in the future
+    # print("RAM device(s): reporting not implemented yet")
 
 
 def is_file_opened(
@@ -118,11 +119,11 @@ def define_carbon_index(
     carbon_index_table_name = resource_stream('eco2ai', 'data/carbon_index.csv').name
     if alpha_2_code is None:
         try:
-            ip_dict = eval(requests.get("https://ipinfo.io/").content)
+            ip_dict = json.loads(requests.get("https://ipinfo.io/").content)  # safer than eval
         except:
-            ip_dict = eval(requests.get("https://ipinfo.io/").content.decode('ascii'))
-        country = ip_dict['country']
-        region = ip_dict['region']
+            ip_dict = json.loads(requests.get("https://ipinfo.io/").content.decode('ascii'))
+        country = ip_dict.get('country', None)
+        region = ip_dict.get('region', None)
     else:
         country = alpha_2_code
     if emission_level is not None:
@@ -507,6 +508,8 @@ def summary(
     if not filename.endswith('.csv'):
         raise NotNeededExtensionError('File need to be with extension \'.csv\'')
     df = pd.read_csv(filename)
+    if df.empty:
+        raise ValueError("CSV file is empty, cannot summarize.")
     projects = np.unique(df['project_name'].values)
     summary_data = []
     columns = [

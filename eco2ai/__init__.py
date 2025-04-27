@@ -2,7 +2,6 @@ from .emission_track import (
     Tracker, 
     track,
     __version__
-
 )
 
 from eco2ai.tools.tools_cpu import (
@@ -16,12 +15,12 @@ from eco2ai.tools.tools_gpu import (
 )
 
 from eco2ai.tools.tools_ram import (
-    RAM,
+    RAM
 )
 
 from eco2ai.utils import (
     available_devices,
     set_params,
     get_params,
-    summary,
+    summary
 )

@@ -12,7 +12,7 @@ class RAM():
         The RAM class is not intended for separate usage, outside the Tracker class
 
     """
-    def __init__(self, ignore_warnings=False):
+    def __init__(self, ignore_warnings: bool = False):
         """
             This class method initializes RAM object.
             Creates fields of class object. All the fields are private variables
@@ -33,7 +33,7 @@ class RAM():
         self._start = time.time()
 
 
-    def get_consumption(self):
+    def get_consumption(self) -> float:
         """
             This class method returns RAM power consupmtion amount.
 
@@ -51,7 +51,7 @@ class RAM():
         return self._consumption
     
 
-    def _get_memory_used(self,):
+    def _get_memory_used(self) -> float:
         """
             This class method calculates amount of virtual memory(RAM) used.
 
@@ -80,10 +80,13 @@ class RAM():
         return memory_percent * total_memory / 100
 
 
-    def calculate_consumption(self):
+    def calculate_consumption(self) -> float:
         """
             This class method calculates RAM power consumption.
-            
+            The formula used is:
+                RAM_used_GB * (3/8) * time_period_seconds / FROM_WATTs_TO_kWATTh
+            where (3/8) is an empirical factor for RAM power estimation.
+            See: https://github.com/sb-ai-lab/Eco2AI/issues/34
             Parameters
             ----------
             No parameters
@@ -97,7 +100,8 @@ class RAM():
         time_period = time.time() - self._start
         self._start = time.time()
         consumption = self._get_memory_used() * (3 / 8) * time_period / FROM_WATTs_TO_kWATTh
-
+        if consumption < 0:  # ensure no negative values
+            consumption = 0
         self._consumption += consumption
-        # print(self._consumption)
         return consumption
+``` 
