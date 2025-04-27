@@ -46,7 +46,7 @@ class GPU:
         if self.is_gpu_available:
             self._start = time.time()
 
-    def calculate_consumption(self) -> float:
+    def calculate_consumption(self): 
         """
         This class method calculates GPU power consumption.
 
@@ -71,7 +71,7 @@ class GPU:
         self._consumption += consumption
         return consumption
 
-    def get_consumption(self) -> float:
+    def get_consumption(self):
         """
         This class method returns GPU power consupmtion amount.
 
@@ -201,7 +201,7 @@ class GPU:
         except Exception:
             return None
 
-    def name(self) -> str:
+    def name(self,):
         """
         This class method returns GPU name if there are any GPU visible
         or it returns empty string. All the GPU devices are intended to be of the same model

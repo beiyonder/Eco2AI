@@ -29,7 +29,7 @@ class CPU():
         The CPU class is not intended for separate usage, outside the Tracker class
 
     """
-    def __init__(self, cpu_processes="current", ignore_warnings: bool = False):
+    def __init__(self, cpu_processes="current", ignore_warnings=False):
         """
             This class method initializes CPU object.
             Creates fields of class object. All the fields are private variables
@@ -185,7 +185,7 @@ def all_available_cpu():
         print("There is no any available cpu device(s)")
 
 
-def number_of_cpu(ignore_warnings: bool = True) -> int:
+def number_of_cpu(ignore_warnings=True):
     """
         This function returns number of CPU sockets(physical CPU processors)
         If the body of the function runs with error, number of available cpu devices will be set to 1
